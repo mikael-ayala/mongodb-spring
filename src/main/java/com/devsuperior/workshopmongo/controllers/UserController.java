@@ -30,8 +30,14 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserDTO> insert(@RequestBody UserDTO userDTO) {
-        UserDTO user = userService.insert(userDTO);
+        userDTO = userService.insert(userDTO);
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(userDTO.getId()).toUri();
-        return ResponseEntity.created(uri).body(user);
+        return ResponseEntity.created(uri).body(userDTO);
+    }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<UserDTO> update(@PathVariable String id, @RequestBody UserDTO userDTO) {
+        userDTO = userService.update(id, userDTO);
+        return ResponseEntity.ok(userDTO);
     }
 }
