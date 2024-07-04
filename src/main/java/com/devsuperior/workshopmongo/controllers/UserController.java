@@ -1,5 +1,6 @@
 package com.devsuperior.workshopmongo.controllers;
 
+import com.devsuperior.workshopmongo.models.dto.PostDTO;
 import com.devsuperior.workshopmongo.models.dto.UserDTO;
 import com.devsuperior.workshopmongo.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,12 @@ public class UserController {
     public ResponseEntity<UserDTO> findById(@PathVariable String id) {
         UserDTO user = userService.findById(id);
         return ResponseEntity.ok(user);
+    }
+
+    @GetMapping("/{id}/posts")
+    public ResponseEntity<List<PostDTO>> getUserPosts(@PathVariable String id) {
+        List<PostDTO> posts = userService.getUserPosts(id);
+        return ResponseEntity.ok(posts);
     }
 
     @PostMapping
